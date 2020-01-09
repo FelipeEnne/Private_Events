@@ -1,0 +1,44 @@
+<div class="event-bg">
+  <div class="btn-group my-4">
+    <div class="event-menu">
+      <%= link_to "Upcoming Events", events_path(type:'upcoming_events'), class: "btn event-type upcoming-link" %>
+      <%= link_to "Past Events", events_path(type:'past_events'), class: "btn event-type past-link" %>
+    </div>
+  </div>
+  <% if @all_events.length.positive? %>
+    <h1 class="text-center">All <%= @event_text %> events</h1>
+    <% @all_events.each_with_index do |event, index| %>        
+      <div class="card event-card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <div class="date-list">
+              <p class="date"><%= event.start_date.strftime("%d") %></p>
+              <p class="month"><%= event.start_date.strftime("%^b") %></p>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%=link_to event.title, event_path(event) %></h5>
+              <p class="card-text">
+                <%= fa_icon "map-marker", class: "text-white" %> 
+                <small class="text-white"><%= event.address %></small>
+              </p>
+              <p class="card-text desc">
+              </p>
+              <p class="card-text mb-0">
+              <% if event.creator == current_user %>
+                <span href="#" class="badge badge-primary">Event Managed by you</span>
+              <% else %>
+                <span href="#" class="badge badge-success">Event Managed by <%= event.creator.name %> </span><br>
+                <%= invited_guest(event).html_safe %>
+              <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <h3 class="my-3 text-center">There are no created <%= @event_text%> events!</h3>
+  <% end %>
+</div>

@@ -1,0 +1,94 @@
+<div class="my-5">
+  <div class="list-group">
+    <div class="list-group-item list-group-item-action active">
+     <div class="row row-justify">
+      <div class="col">
+        <div class="d-flex w-100 justify-content-between">
+          <h3 class="mb-1 w-100"><%= @event.title %></h3>
+        </div>
+      </div>
+      <% if event_creator? %>
+        <div class="col-3">
+          <span class="new-event"> <%= link_to "Send Invitation", "/send_invite/#{@event.id}" %></span>
+        </div>
+      <% end %>
+    </div>
+    </div>
+    <div class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Description</h5>
+      </div>
+      <p class="mb-1"><%= @event.description %></p>
+    </div>
+    <div class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Location</h5>
+      </div>
+      <p class="mb-1"><%= @event.address %></p>
+    </div>
+     <div class="list-group-item list-group-item-action">
+     <div class="row">
+      <div class="col">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Date & Time</h5>
+        </div>
+        <p><%= "#{@event.start_date.strftime("%B %d, %Y")} at #{@event.start_time.strftime("%I:%M %p")}" %> </p>
+      </div>
+      <% if creator_is_current_user(@event) || invitee_is_current_user(@event) %>
+        <div class="col-4 border-left border-primary">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Attending</h5>
+          </div>
+            <div>
+              <% if Event.all_attendees(@event).count.zero? %>
+                None
+              <% else %>
+                <%= pluralize(Event.all_attendees(@event).count, "person") %>
+              <% end %>
+            </div>
+          </div>
+       <% end %>
+       <div class="col-4 border-left border-primary">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Event Creator</h5>
+        </div>
+        <%= content_tag :div, class: "profile-link" do %>
+          <%= content_tag :div, show_creator_name, class: "username" %>
+          <%= content_tag :div, gravatar_for(@event.creator, size: 40) %>
+        <% end %>
+      </div>
+     </div>
+    </div>
+  </div>
+  <% if creator_is_current_user(@event) || invitee_is_current_user(@event) %>
+    <div class="attendees-list my-5">
+      <% if Event.all_attendees(@event).count.positive? %>
+        <h4 class="my-3 text-center">List of <%= "Attendee".pluralize(Event.all_attendees(@event).count) %></h4>
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col"></th>
+              <th scope="col">Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% Event.all_attendees(@event).each_with_index do |user_attendee, index| %>
+            <tr>
+              <th scope="row"><%= index + 1%></th>
+              <td><%= gravatar_for(user_attendee.attendee, size:50) %></td>
+              <td><%= user_attendee.attendee.name %></td>
+              <td><%= user_attendee.attendee.username %></td>
+              <td><%= user_attendee.attendee.email %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <h4 class="my-3 text-center">No Attendee</h4>
+      <% end %>
+    </div>
+  <% end %>
+</div>

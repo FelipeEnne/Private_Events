@@ -1,0 +1,127 @@
+<div class="event-bg">
+  <div class="btn-group my-4">
+    <div class="event-menu">
+      <%= link_to "Upcoming Events", dashboard_path(type:'upcoming_events'), class: "btn event-type upcoming-link" %>
+      <%= link_to "Past Events", dashboard_path(type:'past_events'), class: "btn event-type past-link" %>
+    </div>
+  </div>
+  <h2 class="text-center my-3">Your
+    <span class="event-title">Managed Events </span>
+    <%= header_text %>
+   </h2>
+   
+  <nav class="navbar-tabs">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-your-event-tab" data-toggle="tab" href="#nav-your-event" role="tab" aria-controls="nav-your-event" aria-selected="true">Managed Events</a>
+      <a class="nav-item nav-link" id="nav-accepted-event-tab" data-toggle="tab" href="#nav-accepted-event" role="tab" aria-controls="nav-accepted-event" aria-selected="false">Invited Events</a>
+    </div>
+    <div class="new-event"> 
+      <%= link_to "Create new event", new_event_path %>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-your-event" role="tabpanel" aria-labelledby="nav-your-event-tab">
+      <% if @user_events.length.positive? %>
+        <% @user_events.each_with_index do |event, index| %>        
+          <div class="card event-card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <div class="date-list">
+                  <p class="date"><%= event.start_date.strftime("%d") %></p>
+                  <p class="month"><%= event.start_date.strftime("%^b") %></p>
+                  <p class="time"><%= event.start_time.strftime("%I:%M %p") %></p>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%=link_to event.title, event_path(event) %></h5>
+                  <p class="card-text desc">
+                    <%= fa_icon "audio-description", class: "text-white" %>
+                    <%= string_length(event.description, 100) %>
+                  </p>
+                  <p class="card-text">
+                    <%= fa_icon "map-marker", class: "text-white" %> 
+                    <small class="text-white"><%= event.address %></small>
+                  </p>
+                  <p class="card-text">
+                    <%= fa_icon "users", class: "text-white" %> 
+                    <small class="text-muted">
+                      <% if Event.all_attendees(event).count.zero? %>
+                        No Attendee
+                      <% else %>
+                        <%= pluralize(Event.all_attendees(event).count, "person") %> coming
+                      <% end %>
+                    </small>
+                  </p>
+                  <p class="card-text mb-0"> 
+                    <span href="#" class="badge badge-primary">Managed Event</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>  
+      <% else %>
+        <div class="no-event text-center">
+          <h6 class="title my-3">You have no <%= @event_text%> managed event.</h6>
+          <% if  @events_all.count.zero? %>
+            <em>Create your first event <%= link_to "here", new_event_path %>!
+            </em>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="nav-accepted-event" role="tabpanel" aria-labelledby="nav-accepted-event-tab">
+      <% if @user_invited_events.length.positive? %>
+        <% @user_invited_events.each_with_index do |event, index| %>        
+          <div class="card event-card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <div class="date-list">
+                  <p class="date"><%= event.attended_event.start_date.strftime("%d") %></p>
+                  <p class="month"><%= event.attended_event.start_date.strftime("%^b") %></p>
+                  <p class="time"><%= event.attended_event.start_time.strftime("%I:%M %p") %></p>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%=link_to event.attended_event.title, event_path(event.attended_event) %></h5>
+                  <p class="card-text desc">
+                    <%= fa_icon "audio-description", class: "text-white" %>
+                    <%= string_length(event.attended_event.description, 100) %>
+                  </p>
+                  <p class="card-text">
+                    <%= fa_icon "map-marker", class: "text-white" %> 
+                    <small class="text-white"><%= event.attended_event.address %></small>
+                  </p>
+                  <p class="card-text">
+                    <%= fa_icon "users", class: "text-white" %> 
+                    <small class="text-muted">
+                      <% if Event.all_attendees(event.attended_event).count.zero? %>
+                        No Attendee
+                      <% else %>
+                        <%= pluralize(Event.all_attendees(event.attended_event).count, "person") %> coming
+                      <% end %>
+                    </small>
+                  </p>
+                  <p class="card-text mb-0"> 
+                    <span href="#" class="badge badge-success">Invited by <%= event.attended_event.creator.name %></span><br>
+                    <%= invited_guest(event.attended_event).html_safe %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>  
+      <% else %>
+        <div class="no-event text-center">
+          <h6 class="title my-3">You have no <%= @event_text%> invitation.</h6>
+          <% if user_invited_events.count.positive? %>
+            <em>You have <%= link_to pluralize(user_invited_events.count, 'event'), invites_path %> pending to be accepted!
+            </em>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
