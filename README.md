@@ -35,7 +35,7 @@ Full task description: <a href="https://www.theodinproject.com/courses/ruby-on-r
 ## Live Preview
 
 This is the link to the live preview in Heroku. Feel free to visit.<br>
-<a href="https://vast-depths-78040.herokuapp.com">Private Events</a> <br>
+<a href="https://afternoon-waters-36349.herokuapp.com">Private Events</a> <br>
 <p>Below is the HomePage Screenshot</p>
 <img src="app/assets/images/screenshot.png" alt="Events">
 
