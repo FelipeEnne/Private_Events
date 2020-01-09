@@ -1,0 +1,26 @@
+<% if @all_invites.any? %>
+  <h3 class="text-center my-3">All Invitations</h3>
+  <% @all_invites.each do |invite|%>
+    <div class="invite_card">
+      <%= form_for(:event_attendee, url: "/invites/#{invite.id}", method: :patch ) do |f| %>
+        <div class="card text-center my-4 accept-invite-card">
+          <div class="card-body">
+            <div class="invite-text">
+              <%=  invite.attended_event.creator.name %> invites you to
+              <%= link_to invite.attended_event.title, event_path(invite.attended_event), id: invite.id %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <% if invite.attending? %>
+              <%= button_tag "Invite Accepted", disabled: true, class: "btn btn-sm btn-secondary disabled" %>
+            <% else %>
+              <%= f.submit "Accept Invite", :name => 'accept_button', class: "btn btn-sm btn-primary" %>
+              <%= f.submit "Decline Invite", :name => 'decline_button', class: "btn btn-sm btn-danger", data: {confirm: 'Are you sure?'} %>
+            <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <h3 class="text-center my-3">You have no invitation</h3>
+<% end %>

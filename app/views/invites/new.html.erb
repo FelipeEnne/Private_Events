@@ -1,0 +1,39 @@
+<div class="my-3">
+  <h5>Event: <%= @invite.title %></h5>
+  <h5>No of Invites Sent: <%= EventAttendee.where('attended_event_id = ?', @invite).count %></h5>
+  <h5>No of Invites Accepted: <%= EventAttendee.where('attended_event_id = ? AND status = ?', @invite, 0).count%></h5>
+</div>
+
+<%= form_for(:event_attendee, url: "/send_invite/#{@invite.id}", method: :post) do |f| %>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Profile Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Invite</th>
+      </tr>
+    </thead>
+    <% User.where.not(id: current_user.id).each do |user| %>
+      <tr>
+        <%= f.hidden_field :id, value: user.id  %>
+        <td><%= f.radio_button :attendee_id, user.id, id: "attendee_id_#{user.id}" %></td> 
+        <td><%= gravatar_for(user, size: 40) %></td>          
+        <td><%= user.name %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td>
+        <% if EventAttendee.where('attendee_id = ? AND attended_event_id = ? ', user, @invite ).count.positive? %>
+          <%= button_tag "Invite Sent", {class: "btn btn-sm btn-success invite-sent", disabled: true} %>
+        <% else %>
+          <%= f.submit "Send Invite", class:"btn btn-sm btn-primary" %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+

@@ -1,0 +1,23 @@
+<div class="text-center my-3">
+  <h4 class="my-4">You can accept or decline your invites </h4>
+</div>
+<%= form_for(:event_attendee, url: "/invites/#{@accept_invite.id}", method: :patch) do |f| %>
+  <div class="card text-center accept-invite-card">
+    <div class="card-body">
+      <div class="invite-text">
+        <%= @invited.attended_event.creator.name %> invites you to
+        <%= link_to @invited.attended_event.title, event_path(@invited.attended_event) %>
+      </div>
+    </div>
+    <div class="card-footer">
+      <% if @invited.attending? %>
+        <%= button_tag "Invite Accepted", disabled: true, class: "btn btn-sm btn-secondary disabled" %>
+      <% elsif @invited.declined? %>
+        <%= button_tag "Declined", disabled: true, class: "btn btn-sm btn-secondary disabled" %>
+      <% else %>
+        <%= f.submit "Accept Invite", :name => 'accept_button', class: "btn btn-sm btn-primary" %>
+        <%= f.submit "Decline Invite", :name => 'decline_button', class: "btn btn-sm btn-danger", data: {confirm: 'Are you sure?'} %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
