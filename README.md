@@ -32,6 +32,13 @@ In this project, you will build an application named Private Events and that beh
 Full task description: <a href="https://www.theodinproject.com/courses/ruby-on-rails/lessons/associations"> Odin Project.</a>
 
 
+## Live Preview
+
+This is the link to the live preview in Heroku. Feel free to visit.<br>
+<a href="https://vast-depths-78040.herokuapp.com">Private Events</a> <br>
+<p>Below is the HomePage Screenshot</p>
+<img src="app/assets/images/screenshot.png" alt="Events">
+
 ### Built With 
 
 * HTML
