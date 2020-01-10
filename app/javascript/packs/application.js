@@ -15,3 +15,25 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+require("bootstrap/dist/js/bootstrap")
+
+$(document).on('turbolinks:load', function(){
+    $('#nav-your-event-tab.nav-link').on('click', function() {
+        $('.event-title').text("Managed Events")
+    })
+    $('#nav-accepted-event-tab.nav-link').on('click', function() {
+        $('.event-title').text("Invited Events")
+    })
+
+    var search = $(location).attr('search');
+    var pathname = $(location).attr('pathname') 
+    
+    if (search == "?type=past_events"){
+        $('.past-link').addClass("active")
+        $('.upcoming-link').removeClass("active")
+    }else if(search == "?type=upcoming_events" || (pathname == "/dashboard" || pathname == '/events') ){
+        $('.upcoming-link').addClass("active")
+        $('.past-link').removeClass("active")
+    }
+})

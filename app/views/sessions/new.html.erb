@@ -1,0 +1,10 @@
+<h2 class="text-center my-3">Log In</h2>
+<%= form_for(:sessions, url: '/login') do |f| %>
+  <div class="form_container">
+    <div class="form-group">
+      <%= f.label :username %>
+      <%= f.text_field :username, class:"form-control" %>
+    </div>
+    <%= f.submit "Login", class:"btn btn-primary" %>
+  </div>
+<% end %>

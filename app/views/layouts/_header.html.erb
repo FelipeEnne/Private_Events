@@ -1,0 +1,65 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <%= link_to "Private Events", root_path, class:"navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+         <% if logged_in? %>
+          <li class="nav-item">
+            <%= link_to dashboard_path, class: "nav-link profile-link" do %>
+              <%= content_tag :div, "@#{get_username}", class: "username" %>
+              <%= content_tag :div, gravatar_for(current_user, size: 30) %>
+            <% end %>
+          </li>
+          <div class="dropdown nav-item">
+            <div class="notification" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= fa_icon "bell", class: "text-primary notification-icon" %> 
+              <span class="badge badge-light notification-badge"><%= user_invited_events.count %></span>
+            </div>
+            
+            <div class="dropdown-menu alert alert-primary notification-list" aria-labelledby="dropdownMenuLink" role="alert">
+              <ul class="list-group">
+              <% if user_invited_events.count.positive? %>
+                <% user_invited_events.each do |invite| %>
+                  <li class="list-group-item">
+                    <%= link_to string_length("#{invite['name']} sent you an invitation to #{invite['title']}", 40), invite_path(invite['id']) %>
+                  </li>
+                <% end %>
+              <% else %>
+                <li class="list-group-item">
+                  <div>You have no notification</div>
+                </li>
+              <% end %>
+              </ul>
+            </div>
+          </div>
+          <div class="dropdown nav-item">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Menu
+            </button>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuButton">
+              <%= link_to "Dashboard", dashboard_path, class: "dropdown-item"%>
+              <%= link_to "Create Event", new_event_path, class: "dropdown-item"%>
+              <%= link_to "All Events", events_path, class: "dropdown-item"%>
+              <%= link_to "All Invites", invites_path, class: "dropdown-item"%>
+                <div class="dropdown-divider"></div>
+              <%= link_to "Logout", logout_path, class: "dropdown-item", method: :delete %>
+            </div>
+          </div>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Events", events_path, class: "nav-link"%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "SignUp", signup_path, class: "nav-link"%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Login", login_path, class: "nav-link"%>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</header>
