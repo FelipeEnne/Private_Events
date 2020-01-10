@@ -14,8 +14,8 @@ class Event < ApplicationRecord
 
   scope :past, ->(current_user) { where('creator_id = ? AND start_date <= ?', current_user, Time.now.midnight) }
   scope :upcoming, ->(current_user) { where('creator_id = ? AND start_date > ?', current_user, Time.now.midnight) }
-  scope :invited_past, ->(current_user) { EventAttendee.joins(:attended_event).where('attendee_id = ? AND status == ? AND start_date <= ?', current_user, 0, Time.now.midnight) }
-  scope :invited_upcoming, ->(current_user) { EventAttendee.joins(:attended_event).where('attendee_id = ? AND status == ? AND start_date > ?', current_user, 0, Time.now.midnight) }
+  scope :invited_past, ->(current_user) { EventAttendee.joins(:attended_event).where('attendee_id = ? AND status = ? AND start_date <= ?', current_user, 0, Time.now.midnight) }
+  scope :invited_upcoming, ->(current_user) { EventAttendee.joins(:attended_event).where('attendee_id = ? AND status = ? AND start_date > ?', current_user, 0, Time.now.midnight) }
 
   scope :all_past, -> { where('start_date <= ?', Time.now.midnight) }
   scope :all_upcoming, -> { where('start_date > ?', Time.now.midnight) }

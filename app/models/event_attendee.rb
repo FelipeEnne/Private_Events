@@ -9,4 +9,3 @@ class EventAttendee < ApplicationRecord
 
   enum status: [:attending, :declined, :unset]
 end
-  

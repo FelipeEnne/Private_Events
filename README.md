@@ -36,7 +36,12 @@ Full task description: <a href="https://www.theodinproject.com/courses/ruby-on-r
 
 This is the link to the live preview in Heroku. Feel free to visit.<br>
 <a href="https://afternoon-waters-36349.herokuapp.com">Private Events</a> <br>
-<p>Below is the HomePage Screenshot</p>
+<p>Login in with the following created users usernames. Feel free to test or just play around with the app features.</p>
+* johndoe
+* janebarker
+<br>
+<p>Below is the Event Page Screenshot</p>
+<br>
 <img src="app/assets/images/screenshot.png" alt="Events">
 
 ### Built With 
