@@ -15,7 +15,7 @@
 
 ## Table of Contents
 
-* [About the Project](#about-the-project)
+* [About this Project](#about-the-project)
   * [Built With](#built-with)
 * [Required Installations](#required-installations)
 * [Instalation of This App](#instalation)
@@ -27,7 +27,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-In this project, you will build an application named Private Events and that behaves similar to Eventbrite. The main goal is to put in practice the main concepts of Associations in rails.
+In this project, you will build an application named Private Events that behaves similar to Eventbrite. The main goal is to put the main concepts of Associations in Rails into practice.
 
 Full task description: <a href="https://www.theodinproject.com/courses/ruby-on-rails/lessons/associations"> Odin Project.</a>
 
@@ -65,9 +65,9 @@ Feel free to test or just play around with the app features. <br>
 <a href="https://www.tutorialspoint.com/ruby-on-rails/rails-installation"> Installation Instructions</a>
 
 <!-- INSTALATION -->
-## Instalation of This App
+## Installation of this App
 
-Once you have installed the requiered packages shown on the [Required Installations](#required-installations), proceed with the following steps
+Once you have installed the required packages shown on the [Required Installations](#required-installations), proceed with the following steps
 
 Clone the Repository,
 
@@ -108,8 +108,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
 ## Contact
-* Felipe Enne - felipeenne@gmail.com | [Github Account https://github.com/FelipeEnne](https://github.com/FelipeEnne)
-* MaryAnn Chukwuka - annychuks07@gmail.com | [Github Account https://github.com/adaorachi](https://github.com/adaorachi)
+* Felipe Enne - felipeenne@gmail.com | <a href="https://github.com/FelipeEnne" target="_blank">GitHub</a> | <a href="https://www.linkedin.com/in/felipe-enne/" target="_blank">LinkedIn</a> | <a href="https://felipeenne.com/" target="_blank">Portfolio</a>
+* MaryAnn Chukwuka - annychuks07@gmail.com | <a href="https://github.com/adaorachi" target="_blank">GitHub</a>
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
