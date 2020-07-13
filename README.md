@@ -34,7 +34,7 @@ Full task description: <a href="https://www.theodinproject.com/courses/ruby-on-r
 
 ## Live Preview
 
-This is the link to the live preview in Heroku - <a href="https://afternoon-waters-36349.herokuapp.com">Private Events</a><br> 
+This is the link to the live preview in Heroku - <a href="https://afternoon-waters-36349.herokuapp.com" target="_blank>Private Events</a><br> 
 Login in with the following created users usernames. 
 * johndoe
 * janebarker <br>
