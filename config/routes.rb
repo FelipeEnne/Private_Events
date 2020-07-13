@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   get '/signup', to: 'users#new'
-  get '/dashboard', to: 'users#show'
+  get '/', to: 'users#show'
   resources :users, except: [:new, :show]
   resources :events
 
