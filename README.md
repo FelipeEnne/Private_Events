@@ -18,7 +18,7 @@
 * [About this Project](#about-the-project)
   * [Built With](#built-with)
 * [Required Installations](#required-installations)
-* [Instalation of This App](#instalation)
+* [Installation of This App](#installation-of-this-app)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -34,72 +34,108 @@ Full task description: <a href="https://www.theodinproject.com/courses/ruby-on-r
 
 ## Live Preview
 
-This is the link to the live preview in Heroku - <a href="https://afternoon-waters-36349.herokuapp.com" target="_blank">Private Events</a><br> 
-Login in with the following created users usernames. 
-* johndoe
-* janebarker <br>
+This is the link to the live preview in Heroku - <a href="https://afternoon-waters-36349.herokuapp.com" target="_blank">Private Events</a><br>
+Log in with one of the demo accounts below (username and password are the same):
+
+* johndoe / johndoe
+* janebarker / janebarker
+
 Feel free to test or just play around with the app features. <br>
 
 <p>Below is the Event Page Screenshot</p>
 <br>
 <img src="app/assets/images/screenshot.png" alt="Events">
 
-### Built With 
+### Built With
 
 * HTML
-* CSS
+* CSS / SCSS
+* JavaScript (esbuild)
+* Bootstrap 4
 * Git
-* Ruby
-* Ruby on Rails
+* Ruby 3.3
+* Ruby on Rails 7.2
+* SQLite (development/test)
+* PostgreSQL (production)
 
 
 ## Required Installations
 
 <p>If you want a copy of this project running on your machine you have to install:</p>
 
-* Ruby 2.6.4
-* Gem 3.0.3
-* Rails 6.0.2
-* Bundler 2.0.2
+* Ruby 3.3.x
+* Bundler 2.5+
+* Rails 7.2
+* Node.js 18+ and Yarn 1.x
 
-<a href="https://www.tutorialspoint.com/ruby-on-rails/rails-installation"> Installation Instructions</a>
+<a href="https://guides.rubyonrails.org/getting_started.html#creating-a-new-rails-app"> Rails installation guide</a>
 
 <!-- INSTALATION -->
 ## Installation of this App
 
-Once you have installed the required packages shown on the [Required Installations](#required-installations), proceed with the following steps
+Once you have installed the required packages shown on the [Required Installations](#required-installations), proceed with the following steps.
 
 Clone the Repository,
 
 ```Shell
-your@pc:~$ git clone https://github.com/FelipeEnne/Private_Events
+git clone https://github.com/FelipeEnne/Private_Events
 ```
 
 Move to the downloaded folder
 
 ```Shell
-your@pc:~$ cd Private_Events
+cd Private_Events
 ```
 
-install gems
+Install Ruby gems
 
 ```Shell
-your@pc:~$ bundle install --without production
+bundle install
 ```
 
-migrate the database
+Install JavaScript dependencies
 
 ```Shell
-your@pc:~$ rails db:migrate
+yarn install
+```
+
+Build frontend assets
+
+```Shell
+yarn build
+yarn build:css
+```
+
+Prepare the database
+
+```Shell
+rails db:prepare
 ```
 
 Run the app in a local server:
 
 ```Shell
-your@pc:~$ rails server
+bin/dev
+```
+
+Or, without Foreman:
+
+```Shell
+rails server
+```
+
+In a separate terminal, keep assets building in watch mode:
+
+```Shell
+yarn build --watch
+yarn build:css --watch
 ```
 
 Then, go to [http://localhost:3000](http://localhost:3000)
+
+### Production / Heroku
+
+For production deploys, set `RAILS_MASTER_KEY` in the environment and use Ruby + Node buildpacks. Asset compilation runs automatically via `rails assets:precompile`.
 
 <!-- LICENSE -->
 ## License
