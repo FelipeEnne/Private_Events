@@ -30,7 +30,7 @@
                 <span href="#" class="badge badge-primary">Event Managed by you</span>
               <% else %>
                 <span href="#" class="badge badge-success">Event Managed by <%= event.creator.name %> </span><br>
-                <%= invited_guest(event).html_safe %>
+                <%= invited_guest_badge(event) %>
               <% end %>
               </p>
             </div>

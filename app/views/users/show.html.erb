@@ -106,7 +106,7 @@
                   </p>
                   <p class="card-text mb-0"> 
                     <span href="#" class="badge badge-success">Invited by <%= event.attended_event.creator.name %></span><br>
-                    <%= invited_guest(event.attended_event).html_safe %>
+                    <%= invited_guest_badge(event.attended_event) %>
                   </p>
                 </div>
               </div>

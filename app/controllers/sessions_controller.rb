@@ -5,14 +5,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(username: params[:sessions][:username])
-    if user
+    user = User.find_by(username: params[:sessions][:username]&.downcase)
+    if user&.authenticate(params[:sessions][:password])
       log_in(user)
       redirect_to dashboard_path
       flash['alert-success'] = "Welcome back #{user.name}!"
     else
       flash.now['alert-danger'] = 'Wrong Username/password combination!'
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -23,4 +23,3 @@ class SessionsController < ApplicationController
     flash['alert-success'] = "You have successfully logged out #{user.name}!"
   end
 end
-  

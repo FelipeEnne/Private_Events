@@ -36,16 +36,19 @@ module EventsHelper
     end
   end
 
-  def invited_guest(event)
-    invited_guest = ''
+  def invited_guest_badge(event)
     event.event_attendees.each do |invited|
-      if invited.attendee == current_user && invited.attending?
-        invited_guest = '<span class="badge badge-secondary">Accepted Invitation</span>'
-      elsif invited.attendee == current_user && invited.unset?
-        invited_guest = "<a href='/invites/#{invited.id}'><span class='badge badge-danger'>Yet to accept invitation</span></a>"
+      next unless invited.attendee == current_user
+
+      if invited.attending?
+        return content_tag(:span, 'Accepted Invitation', class: 'badge badge-secondary')
+      elsif invited.unset?
+        return link_to invite_path(invited) do
+          content_tag(:span, 'Yet to accept invitation', class: 'badge badge-danger')
+        end
       end
     end
-    invited_guest
+    nil
   end
 
   def creator_is_current_user(event)
@@ -56,6 +59,6 @@ module EventsHelper
     event.event_attendees.each do |invited|
       return true if invited.attendee == current_user && invited.attending?
     end
-    return false
+    false
   end
 end

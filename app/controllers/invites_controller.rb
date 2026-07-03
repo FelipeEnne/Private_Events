@@ -1,6 +1,6 @@
 class InvitesController < ApplicationController
   before_action :logged_in_user
-  before_action :correct_event_invitee, only: [:show, :update]
+  before_action :correct_event_invitee, only: [:show, :update, :destroy]
   before_action :correct_event_creator, only: [:new, :create]
 
   def index
@@ -14,9 +14,9 @@ class InvitesController < ApplicationController
   def create
     @invite = Event.find(params[:id])
 
-    @invitation = @invite.event_attendees.build(attendee_id: invitation_params)
+    @invitation = @invite.event_attendees.build(attendee_id: invitation_params[:attendee_id])
     if @invitation.save
-      invitee = User.find_by(id: invitation_params)
+      invitee = User.find_by(id: invitation_params[:attendee_id])
       flash.now['alert-success'] = "Invitation has been successfully sent to #{invitee.name}!"
     else
       flash.now['alert-danger'] = 'You have to select a Attendee'
@@ -32,12 +32,12 @@ class InvitesController < ApplicationController
   def update
     @accept_invite = EventAttendee.find(params[:id])
     if params[:decline_button]
-      update_not_attending = @accept_invite.update_attributes(status: 'declined')
+      update_not_attending = @accept_invite.update(status: 'declined')
       if update_not_attending
         flash['alert-warning'] = 'You have declined the invite!'
       end
     elsif params[:accept_button]
-      update_is_attending = @accept_invite.update_attributes(status: 'attending')
+      update_is_attending = @accept_invite.update(status: 'attending')
       if update_is_attending
         flash['alert-success'] = 'You are going to the event!'
       end
@@ -55,7 +55,7 @@ class InvitesController < ApplicationController
   private
 
   def invitation_params
-    params[:event_attendee][:attendee_id]
+    params.require(:event_attendee).permit(:attendee_id)
   end
 
   def correct_event_invitee

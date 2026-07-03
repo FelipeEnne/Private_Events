@@ -26,6 +26,7 @@ RSpec.feature 'Authentications', type: :feature do
     context 'when supplied data is valid' do
       it 'logs in user' do
         fill_in 'Username', with: user.username
+        fill_in 'Password', with: 'johndoe'
         click_button 'Login'
         expect(page).to have_content("Welcome back #{user.name}!")
         expect(current_path).to eq dashboard_path
@@ -42,6 +43,7 @@ RSpec.feature 'Authentications', type: :feature do
     context 'when supplied data is not valid' do
       it 'shows flash error' do
         fill_in 'Username', with: 'Hmmm'
+        fill_in 'Password', with: 'wrongpassword'
         click_button 'Login'
         expect(page).to have_content('Wrong Username/password combination!')
         expect(current_path).to eq(login_path)
@@ -53,6 +55,7 @@ RSpec.feature 'Authentications', type: :feature do
     before do
       visit login_path
       fill_in 'Username', with: user.username
+      fill_in 'Password', with: 'johndoe'
       click_button 'Login'
     end
 

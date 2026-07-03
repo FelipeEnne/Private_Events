@@ -29,7 +29,7 @@ RSpec.feature 'Create Events', type: :feature do
 
   before :each do
     event = user1.created_event.build(title: 'Event testing', description: 'Event description',
-                                      address: 'Event Location', start_date: '2020-01-20',
+                                      address: 'Event Location', start_date: 1.month.from_now.to_date,
                                       start_time: '2000-01-01 12:00:00')
     event.save
 
@@ -40,13 +40,14 @@ RSpec.feature 'Create Events', type: :feature do
   scenario 'Event creation', type: :feature do
     visit login_path
     page.fill_in 'Username', with: user1.username
+    page.fill_in 'Password', with: 'johndoe'
     click_button 'Login'
 
     click_on 'Create Event'
     page.fill_in 'Title', with: 'Event name'
     page.fill_in 'Description', with: 'Event description'
     page.fill_in 'Location', with: 'Event Location'
-    page.fill_in 'Date', with: '2020-01-20'
+    page.fill_in 'Date', with: 2.months.from_now.strftime('%Y-%m-%d')
     page.fill_in 'Time', with: '12:00 PM'
     click_button 'Create an Event'
     expect(current_path).to eq dashboard_path
@@ -56,6 +57,7 @@ RSpec.feature 'Create Events', type: :feature do
   scenario 'Invite to event', type: :feature do
     visit login_path
     page.fill_in 'Username', with: user1.username
+    page.fill_in 'Password', with: 'johndoe'
     click_button 'Login'
 
     click_link 'Event testing'
@@ -76,6 +78,7 @@ RSpec.feature 'Create Events', type: :feature do
   scenario 'Accept Invite', type: :feature do
     visit login_path
     page.fill_in 'Username', with: user2.username
+    page.fill_in 'Password', with: 'janebarker'
     click_button 'Login'
 
     expect(page).to have_text "#{user1.name} sent you an invitation to Event ..."
