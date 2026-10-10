@@ -14,7 +14,7 @@ gem 'font-awesome-rails'
 gem 'bootsnap', require: false
 
 group :development, :test do
-  gem 'sqlite3', '~> 2.1'
+  gem 'sqlite3', '~> 2.9'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'database_cleaner-active_record'
   gem 'rspec-rails'
