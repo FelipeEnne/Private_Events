@@ -12,6 +12,9 @@
     "esbuild": "^0.25.0",
     "sass": "^1.85.0"
   },
+  "resolutions": {
+    "source-map-js": "^1.2.2"
+  },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "node scripts/build-css.mjs"
