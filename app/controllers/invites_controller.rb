@@ -25,12 +25,10 @@ class InvitesController < ApplicationController
   end
 
   def show
-    @accept_invite = EventAttendee.find(params[:id])
-    @invited = EventAttendee.where('id = ? AND attendee_id = ? ', @accept_invite, current_user).take
+    @invited = @accept_invite
   end
 
   def update
-    @accept_invite = EventAttendee.find(params[:id])
     if params[:decline_button]
       update_not_attending = @accept_invite.update(status: 'declined')
       if update_not_attending
@@ -46,8 +44,7 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    @delete_invite = EventAttendee.find(params[:id])
-    @delete_invite.destroy
+    @accept_invite.destroy
     flash['alert-warning'] = 'You have declined the invite!'
     redirect_to invites_path
   end

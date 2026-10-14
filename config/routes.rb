@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'users#new'
   get '/dashboard', to: 'users#show'
-  resources :users, except: [:new, :show]
+  resources :users, only: [:create]
   resources :events
 
   get '/login', to: 'sessions#new'
